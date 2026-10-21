@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111025" />
+  <meta name="description" content="FocusPro: organize seus estudos, tarefas e hábitos." />
+  <title>FocusPro — Organize seus estudos</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✦</span><span>Focus<span class="accent">Pro</span></span></div>
+      <nav>
+        <button class="nav-item active" data-view="dashboard">▦ <span>Painel</span></button>
+        <button class="nav-item" data-view="tasks">☑ <span>Tarefas</span></button>
+        <button class="nav-item" data-view="focus">◷ <span>Foco Pomodoro</span></button>
+        <button class="nav-item" data-view="habits">✧ <span>Hábitos</span></button>
+        <button class="nav-item" data-view="premium">♛ <span>Premium</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-note">Pequenos passos.<br/><strong>Grandes resultados.</strong></div>
+        <span class="version">FOCUSPRO • BETA</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><p class="eyebrow" id="todayLabel">SEU ESPAÇO DE ESTUDOS</p><h1 id="pageTitle">Seu foco começa aqui.</h1></div>
+        <button class="avatar" aria-label="Perfil">FP</button>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="hero">
+          <div>
+            <span class="pill">✦ SEU DIA, DO SEU JEITO</span>
+            <h2>Um passo de cada vez.<br/><span class="gradient-text">Você consegue.</span></h2>
+            <p>Organize suas tarefas, acompanhe seus hábitos e transforme intenção em progresso.</p>
+            <button class="primary" data-goto="tasks">＋ Adicionar tarefa</button>
+          </div>
+          <div class="hero-orb"><div class="orb-core">✦</div><span class="orb-label">FOCO</span></div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon purple">☑</span><span class="stat-label">Tarefas concluídas</span><strong id="completedCount">0</strong><small>Continue no seu ritmo</small></article>
+          <article class="stat-card"><span class="stat-icon blue">◷</span><span class="stat-label">Minutos de foco</span><strong id="focusMinutes">0</strong><small>Tempo registrado nesta sessão</small></article>
+          <article class="stat-card"><span class="stat-icon pink">✧</span><span class="stat-label">Hábitos de hoje</span><strong id="habitCount">0/3</strong><small>Consistência acima da perfeição</small></article>
+        </div>
+
+        <div class="content-grid">
+          <article class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">ORGANIZAÇÃO</p><h3>Próximas tarefas</h3></div><button class="text-button" data-goto="tasks">Ver todas →</button></div>
+            <div id="dashboardTasks" class="task-list"></div>
+          </article>
+          <article class="panel quote-panel">
+            <span class="quote-icon">“</span>
+            <p class="eyebrow">LEMBRETE DO DIA</p>
+            <h3>Você não precisa fazer tudo hoje. Só precisa começar.</h3>
+            <p class="muted">Escolha uma tarefa pequena e dê o primeiro passo.</p>
+            <button class="secondary" data-goto="focus">Começar um ciclo de foco ↗</button>
+          </article>
+        </div>
+        <div class="ad-slot" aria-label="Espaço reservado para anúncio"><span>AD</span><div><strong>Espaço para anúncio</strong><small>Esta área está preparada como demonstração. Anúncios reais exigem uma conta e integração com uma rede de anúncios.</small></div><span class="ad-label">PUBLICIDADE</span></div>
+      </section>
+
+      <section class="view" id="view-tasks">
+        <div class="section-intro"><p class="eyebrow">TIRE DA CABEÇA, COLOQUE NO PLANO</p><h2>Suas tarefas</h2><p>Quebre seus objetivos em passos menores.</p></div>
+        <form id="taskForm" class="task-form">
+          <input id="taskTitle" required maxlength="90" placeholder="Ex.: Revisar matemática por 20 minutos" />
+          <select id="taskSubject" aria-label="Matéria"><option>Geral</option><option>Matemática</option><option>Português</option><option>Ciências</option><option>História</option><option>Geografia</option><option>Inglês</option><option>Outra</option></select>
+          <select id="taskPriority" aria-label="Prioridade"><option value="normal">Normal</option><option value="high">Alta prioridade</option></select>
+          <button class="primary" type="submit">＋ Adicionar</button>
+        </form>
+        <div class="filter-row"><button class="filter active" data-filter="all">Todas</button><button class="filter" data-filter="pending">Pendentes</button><button class="filter" data-filter="done">Concluídas</button></div>
+        <div id="allTasks" class="task-list large-list"></div>
+      </section>
+
+      <section class="view" id="view-focus">
+        <div class="section-intro"><p class="eyebrow">MENOS DISTRAÇÃO, MAIS PRESENÇA</p><h2>Hora de focar</h2><p>Experimente estudar em blocos curtos com pausas planejadas.</p></div>
+        <div class="timer-card">
+          <div class="timer-tabs"><button class="timer-tab active" data-minutes="25" data-mode="Foco">Foco · 25 min</button><button class="timer-tab" data-minutes="5" data-mode="Pausa curta">Pausa curta · 5 min</button><button class="timer-tab" data-minutes="15" data-mode="Pausa longa">Pausa longa · 15 min</button></div>
+          <p class="eyebrow" id="timerMode">SESSÃO DE FOCO</p>
+          <div class="timer-ring"><div><strong id="timerDisplay">25:00</strong><span>respire e continue</span></div></div>
+          <div class="timer-actions"><button id="timerStart" class="primary">▶ Começar</button><button id="timerReset" class="secondary">↺ Reiniciar</button></div>
+          <p class="muted timer-hint">Mantenha esta aba aberta para o temporizador funcionar melhor.</p>
+        </div>
+      </section>
+
+      <section class="view" id="view-habits">
+        <div class="section-intro"><p class="eyebrow">UM POUCO TODOS OS DIAS</p><h2>Hábitos que ajudam</h2><p>Marque o que você fez hoje. O progresso é seu.</p></div>
+        <div class="habit-list" id="habitList"></div>
+        <div class="panel habit-tip"><span class="stat-icon pink">✧</span><div><h3>Não precisa ser perfeito.</h3><p class="muted">Se hoje não deu, amanhã é uma nova oportunidade para recomeçar.</p></div></div>
+      </section>
+
+      <section class="view" id="view-premium">
+        <div class="premium-hero"><span class="pill">♛ FOCUSPRO PREMIUM</span><h2>Seu espaço.<br/><span class="gradient-text">Mais possibilidades.</span></h2><p>Recursos extras para quem quer personalizar sua rotina de estudos.</p></div>
+        <div class="plans">
+          <article class="plan-card"><p class="eyebrow">PARA COMEÇAR</p><h3>Gratuito</h3><div class="price">R$ 0 <small>/ sempre</small></div><ul><li>✓ Tarefas e matérias</li><li>✓ Cronômetro Pomodoro</li><li>✓ Hábitos diários</li><li>✓ Dados salvos neste navegador</li></ul><button class="secondary full" disabled>Seu plano atual</button></article>
+          <article class="plan-card featured"><span class="plan-badge">PLANO PROPOSTO</span><p class="eyebrow">PARA IR ALÉM</p><h3>Premium</h3><div class="price">R$ 4,99 <small>/ mês</small></div><ul><li>✓ Estatísticas avançadas (planejado)</li><li>✓ Temas e personalização (planejado)</li><li>✓ Relatórios de estudo (planejado)</li><li>✓ Apoio ao desenvolvimento do app</li></ul><button class="primary full" id="subscribeButton">Tenho interesse</button><small class="plan-footnote">Ainda não há cobrança ativa. Este botão registra apenas seu interesse neste navegador.</small></article>
+        </div>
+        <div class="notice"><strong>Antes de vender assinaturas:</strong> é necessário configurar um provedor de pagamentos, autenticação e validação segura da assinatura no servidor. Não colete dados de cartão nesta versão.</div>
+      </section>
+
+      <footer><span>FocusPro © <span id="year"></span></span><span>Feito para estudar no seu ritmo ✦</span><button class="footer-link" data-goto="premium">Conheça o Premium</button></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>

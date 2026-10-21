@@ -1,0 +1,10 @@
+{
+  "name": "FocusPro — Organize seus estudos",
+  "short_name": "FocusPro",
+  "description": "Organize tarefas, hábitos e sessões de foco.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0e0d1c",
+  "theme_color": "#111025",
+  "icons": []
+}
